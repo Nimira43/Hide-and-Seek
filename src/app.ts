@@ -13,7 +13,6 @@ enum State {
 }
 
 class Game {
-
     private _canvas: HTMLCanvasElement
     private _engine: Engine
     private _scene: Scene
