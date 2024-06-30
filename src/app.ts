@@ -28,7 +28,7 @@ class Game {
         this._canvas.style.width = '100%'
         this._canvas.style.height = '100%'
         this._canvas.id = 'gameCanvas'
-        document.appendChild(this._canvas)
+        document.body.appendChild(this._canvas)
     }
 
     private initialize(): void {
