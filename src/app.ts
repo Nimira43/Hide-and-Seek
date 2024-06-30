@@ -1,4 +1,5 @@
-import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core'
+import { Engine, Scene } from '@babylonjs/core'
+import { start } from './states/start'
 
 enum State {
     START = 0,
@@ -12,11 +13,12 @@ enum State {
     WIN = 8
 }
 
-class Game {
+export class Game {
     private _canvas: HTMLCanvasElement
     private _engine: Engine
     private _scene: Scene
     private _state: number = 0
+    protected _start = start
 
     constructor() {
         this.createCanvas()
@@ -50,7 +52,7 @@ class Game {
     }
 
     private main(): void {
-        this.start()
+        this._start(this._canvas, this._scene)
         this._engine.runRenderLoop(() => {
             switch (this._state) {
                 case State.START:
@@ -60,11 +62,6 @@ class Game {
             }
             this._scene.render()
         })
-    }
-
-    private start(): void {
-        const camera: ArcRotateCamera = new ArcRotateCamera('camera', Math.PI, Math.PI, 1, Vector3.Zero())
-        camera.attachControl(true)     
     }
 }
 
