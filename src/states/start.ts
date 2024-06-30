@@ -1,23 +1,25 @@
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core'
 import { AdvancedDynamicTexture, Rectangle } from '@babylonjs/gui'
-import { Game } from '../app'
+import { Game, Status } from '../app'
 
-export async function start(this: Game, canvas: HTMLCanvasElement, engine: Engine, scene: Scene) {
-    const camera: ArcRotateCamera = new ArcRotateCamera('camera', Math.PI, Math.PI, 1, Vector3.Zero())
-    camera.attachControl(true)   
+export async function start(this: Game, canvas: HTMLCanvasElement, engine: Engine, status: Status) {
     
-    scene.detachControl()
+    status._scene.detachControl()
     engine.displayLoadingUI()
     let sceneToLoad = new Scene(engine)
 
-    const guiMenu = AdvancedDynamicTexture.CreateFullscreenUI('ui', true, scene)
+    const guiMenu = AdvancedDynamicTexture.CreateFullscreenUI('ui', true, sceneToLoad)
     const background = new Rectangle('background')
     background.color = '#9dc9b5'
     background.background = '#9dc9b5'
-    
     guiMenu.addControl(background)
-    await scene.whenReadyAsync()
+
+    const camera: ArcRotateCamera = new ArcRotateCamera('camera', Math.PI, Math.PI, 1, Vector3.Zero(), sceneToLoad)
+    camera.attachControl(true)  
+
+    await sceneToLoad.whenReadyAsync()
     sceneToLoad.attachControl()
     engine.hideLoadingUI()
-    scene.dispose()
+    status._scene.dispose()
+    status._scene = sceneToLoad
 }

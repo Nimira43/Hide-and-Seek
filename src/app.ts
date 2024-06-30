@@ -13,10 +13,18 @@ enum State {
     WIN = 8
 }
 
+export type Status = {
+    _scene: Scene,
+    _state: number
+}
+
 export class Game {
     private _canvas: HTMLCanvasElement
     private _engine: Engine
-    private _scene: Scene
+    private _status: Status = {
+        _scene: null,
+        _state: 0
+    }
     private _state: number = 0
     protected _start = start
 
@@ -47,20 +55,20 @@ export class Game {
 
     private initialize(): void {
         this._engine = new Engine(this._canvas, true)
-        this._scene = new Scene(this._engine)
+        this._status._scene = new Scene(this._engine)
         this.main()
     }
 
     private main(): void {
-        this._start(this._canvas, this._engine, this._scene)
+        this._start(this._canvas, this._engine, this._status)
         this._engine.runRenderLoop(() => {
             switch (this._state) {
                 case State.START:
-                    this._scene.render()
+                    this._status._scene.render()
                     break
                 default: break
             }
-            this._scene.render()
+            this._status._scene.render()
         })
     }
 }
