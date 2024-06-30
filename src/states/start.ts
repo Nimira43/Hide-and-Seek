@@ -1,5 +1,5 @@
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core'
-import { AdvancedDynamicTexture, Rectangle } from '@babylonjs/gui'
+import { AdvancedDynamicTexture, Rectangle, Button } from '@babylonjs/gui'
 import { Game, Status } from '../app'
 
 export async function start(this: Game, canvas: HTMLCanvasElement, engine: Engine, status: Status) {
@@ -15,7 +15,9 @@ export async function start(this: Game, canvas: HTMLCanvasElement, engine: Engin
     guiMenu.addControl(background)
 
     const camera: ArcRotateCamera = new ArcRotateCamera('camera', Math.PI, Math.PI, 1, Vector3.Zero(), sceneToLoad)
-    camera.attachControl(true)  
+    camera.attachControl(true) 
+
+    const playBtn = Button.CreateSimpleButton('playBtn', "Play") 
 
     await sceneToLoad.whenReadyAsync()
     sceneToLoad.attachControl()
