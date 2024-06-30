@@ -52,7 +52,7 @@ export class Game {
     }
 
     private main(): void {
-        this._start(this._canvas, this._scene)
+        this._start(this._canvas, this._engine, this._scene)
         this._engine.runRenderLoop(() => {
             switch (this._state) {
                 case State.START:
