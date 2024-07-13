@@ -11,8 +11,8 @@ export async function start(this: Game, canvas: HTMLCanvasElement, engine: Engin
     const guiMenu = AdvancedDynamicTexture.CreateFullscreenUI('ui', true, sceneToLoad)
     
     const background = new Rectangle('background')
-    background.color = '#9dc9b5'
-    background.background = '#9cd9b5'
+    background.color = '#111111'
+    background.background = '#ff4500'
     guiMenu.addControl(background)
 
     const camera: ArcRotateCamera = new ArcRotateCamera('camera', Math.PI, Math.PI, 1, Vector3.Zero(), sceneToLoad)
